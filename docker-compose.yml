@@ -1,0 +1,318 @@
+services:
+  warp-proxy-1:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-1
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-1:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy
+          - warp-proxy-1
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  warp-proxy-2:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-2
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-2:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy-2
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  warp-proxy-3:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-3
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-3:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy-3
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  warp-proxy-4:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-4
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-4:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy-4
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  warp-proxy-5:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-5
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-5:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy-5
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  warp-proxy-6:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-6
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-6:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy-6
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  warp-proxy-7:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-7
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-7:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy-7
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  warp-proxy-8:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-8
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-8:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy-8
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  warp-proxy-9:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-9
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-9:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy-9
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  warp-proxy-10:
+    image: caomingjun/warp:latest
+    container_name: warp-proxy-10
+    privileged: true
+    environment:
+      - WARP_SLEEP=5
+      - TZ=America/Sao_Paulo
+      - WARP_ACCEPT_TOS=true
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - warp-data-10:/var/lib/cloudflare-warp
+    networks:
+      dokploy-network:
+        aliases:
+          - warp-proxy-10
+    healthcheck:
+      test: [ "CMD", "curl", "-x", "socks5h://127.0.0.1:1080", "-s", "http://ifconfig.me" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  warp-data-1:
+  warp-data-2:
+  warp-data-3:
+  warp-data-4:
+  warp-data-5:
+  warp-data-6:
+  warp-data-7:
+  warp-data-8:
+  warp-data-9:
+  warp-data-10:
+
+
+networks:
+  dokploy-network:
+    external: true
