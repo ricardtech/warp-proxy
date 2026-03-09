@@ -128,7 +128,7 @@ services:
       - WARP_SLEEP=5
       - TZ=America/Sao_Paulo
       - WARP_ACCEPT_TOS=true
-      - WARP_LICENSE_KEY=JI31G25F-4m61S8ul-tU47N1n9
+      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
     cap_add:
       - NET_ADMIN
     sysctls:
