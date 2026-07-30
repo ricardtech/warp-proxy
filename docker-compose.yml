@@ -1,9 +1,13 @@
+# docker-compose.yml - WARP Proxy Stack para Dokploy
+# 4 instâncias WARP SOCKS5 em portas 1081-1084 (0.0.0.0)
+# Rede: dokploy-network (externo, gerenciado pelo Dokploy)
+
 services:
   warp-proxy-1:
     image: caomingjun/warp:latest
     container_name: warp-proxy-1
     ports:
-      - "127.0.0.1:1081:1080"
+      - "0.0.0.0:1081:1080"
     privileged: true
     environment:
       - WARP_SLEEP=5
@@ -18,30 +22,19 @@ services:
     volumes:
       - warp-data-1:/var/lib/cloudflare-warp
     networks:
-      dokploy-network:
-        aliases:
-          - warp-proxy
-          - warp-proxy-1
-    healthcheck:
-      test:
-        - CMD
-        - curl
-        - -x
-        - socks5h://127.0.0.1:1080
-        - -s
-        - http://ifconfig.me
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - dokploy-network
+    restart: unless-stopped
     deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+          cpus: "0.5"
+
   warp-proxy-2:
     image: caomingjun/warp:latest
     container_name: warp-proxy-2
     ports:
-      - "127.0.0.1:1082:1080"
+      - "0.0.0.0:1082:1080"
     privileged: true
     environment:
       - WARP_SLEEP=5
@@ -56,29 +49,19 @@ services:
     volumes:
       - warp-data-2:/var/lib/cloudflare-warp
     networks:
-      dokploy-network:
-        aliases:
-          - warp-proxy-2
-    healthcheck:
-      test:
-        - CMD
-        - curl
-        - -x
-        - socks5h://127.0.0.1:1080
-        - -s
-        - http://ifconfig.me
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - dokploy-network
+    restart: unless-stopped
     deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+          cpus: "0.5"
+
   warp-proxy-3:
     image: caomingjun/warp:latest
     container_name: warp-proxy-3
     ports:
-      - "127.0.0.1:1083:1080"
+      - "0.0.0.0:1083:1080"
     privileged: true
     environment:
       - WARP_SLEEP=5
@@ -93,29 +76,19 @@ services:
     volumes:
       - warp-data-3:/var/lib/cloudflare-warp
     networks:
-      dokploy-network:
-        aliases:
-          - warp-proxy-3
-    healthcheck:
-      test:
-        - CMD
-        - curl
-        - -x
-        - socks5h://127.0.0.1:1080
-        - -s
-        - http://ifconfig.me
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - dokploy-network
+    restart: unless-stopped
     deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+          cpus: "0.5"
+
   warp-proxy-4:
     image: caomingjun/warp:latest
     container_name: warp-proxy-4
     ports:
-      - "127.0.0.1:1084:1080"
+      - "0.0.0.0:1084:1080"
     privileged: true
     environment:
       - WARP_SLEEP=5
@@ -130,153 +103,20 @@ services:
     volumes:
       - warp-data-4:/var/lib/cloudflare-warp
     networks:
-      dokploy-network:
-        aliases:
-          - warp-proxy-4
+      - dokploy-network
+    restart: unless-stopped
     deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-  warp-proxy-5:
-    image: caomingjun/warp:latest
-    container_name: warp-proxy-5
-    ports:
-      - "127.0.0.1:1085:1080"
-    privileged: true
-    environment:
-      - WARP_SLEEP=5
-      - TZ=America/Sao_Paulo
-      - WARP_ACCEPT_TOS=true
-      - WARP_LICENSE_KEY=iV4bQ198-Z0275GRd-N1W4St85
-    cap_add:
-      - NET_ADMIN
-    sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0
-      - net.ipv4.conf.all.src_valid_mark=1
-    volumes:
-      - warp-data-5:/var/lib/cloudflare-warp
-    networks:
-      dokploy-network:
-        aliases:
-          - warp-proxy-5
-    deploy:
-      replicas: 0
-      restart_policy:
-        condition: on-failure
-  warp-proxy-6:
-    image: caomingjun/warp:latest
-    container_name: warp-proxy-6
-    ports:
-      - "127.0.0.1:1086:1080"
-    privileged: true
-    environment:
-      - WARP_SLEEP=5
-      - TZ=America/Sao_Paulo
-      - WARP_ACCEPT_TOS=true
-      - WARP_LICENSE_KEY=qp96h18c-6wQV0z38-710Afe6b
-    cap_add:
-      - NET_ADMIN
-    sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0
-      - net.ipv4.conf.all.src_valid_mark=1
-    volumes:
-      - warp-data-6:/var/lib/cloudflare-warp
-    networks:
-      dokploy-network:
-        aliases:
-          - warp-proxy-6
-    deploy:
-      replicas: 0
-      restart_policy:
-        condition: on-failure
-  warp-proxy-7:
-    image: caomingjun/warp:latest
-    container_name: warp-proxy-7
-    ports:
-      - "127.0.0.1:1087:1080"
-    privileged: true
-    environment:
-      - WARP_SLEEP=5
-      - TZ=America/Sao_Paulo
-      - WARP_ACCEPT_TOS=true
-      - WARP_LICENSE_KEY=96dvAg74-5lT9FE70-zP7E826f
-    cap_add:
-      - NET_ADMIN
-    sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0
-      - net.ipv4.conf.all.src_valid_mark=1
-    volumes:
-      - warp-data-7:/var/lib/cloudflare-warp
-    networks:
-      dokploy-network:
-        aliases:
-          - warp-proxy-7
-    deploy:
-      replicas: 0
-      restart_policy:
-        condition: on-failure
-  warp-proxy-8:
-    image: caomingjun/warp:latest
-    container_name: warp-proxy-8
-    ports:
-      - "127.0.0.1:1088:1080"
-    privileged: true
-    environment:
-      - WARP_SLEEP=5
-      - TZ=America/Sao_Paulo
-      - WARP_ACCEPT_TOS=true
-      - WARP_LICENSE_KEY=qY61DE98-8QBv6T25-524nxY3c
-    cap_add:
-      - NET_ADMIN
-    sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0
-      - net.ipv4.conf.all.src_valid_mark=1
-    volumes:
-      - warp-data-8:/var/lib/cloudflare-warp
-    networks:
-      dokploy-network:
-        aliases:
-          - warp-proxy-8
-    deploy:
-      replicas: 0
-      restart_policy:
-        condition: on-failure
-  warp-proxy-9:
-    image: caomingjun/warp:latest
-    container_name: warp-proxy-9
-    ports:
-      - "127.0.0.1:1089:1080"
-    privileged: true
-    environment:
-      - WARP_SLEEP=5
-      - TZ=America/Sao_Paulo
-      - WARP_ACCEPT_TOS=true
-      - WARP_LICENSE_KEY=21ZsV47q-0W8De4J5-03vVnP21
-    cap_add:
-      - NET_ADMIN
-    sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0
-      - net.ipv4.conf.all.src_valid_mark=1
-    volumes:
-      - warp-data-9:/var/lib/cloudflare-warp
-    networks:
-      dokploy-network:
-        aliases:
-          - warp-proxy-9
-    deploy:
-      replicas: 0
-      restart_policy:
-        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+          cpus: "0.5"
+
 volumes:
-  warp-data-1: null
-  warp-data-2: null
-  warp-data-3: null
-  warp-data-4: null
-  warp-data-5: null
-  warp-data-6: null
-  warp-data-7: null
-  warp-data-8: null
-  warp-data-9: null
+  warp-data-1:
+  warp-data-2:
+  warp-data-3:
+  warp-data-4:
+
 networks:
   dokploy-network:
     external: true
